@@ -1,4 +1,4 @@
-package GameProject.Fishes;
+package GameProject.fishes;
 
 import javax.swing.*;
 import java.awt.*;

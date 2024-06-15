@@ -1,28 +1,24 @@
-package GameProject.InterfaceMenu;
-
+package GameProject.main;
 import javax.swing.*;
 import java.awt.*;
 
-public class MainMenu extends JPanel {
-    public static final int WIDTH = 1280;
-    public static final int HEIGHT = 720;
-    public static  final int BUTTON_CENTER=454;
-    public static  final int BUTTON_HEIGHT=110;
-    public static  final int BUTTON_WIDTH=410;
-    private Image backgroundImage;
-   private GamePanel gamePanel;
-    private Window window;
+import static utilz.Constants.MainMenuConstants.*;
 
-    public MainMenu(Window window){
-        this.window=window;
-        this.backgroundImage=new ImageIcon("src/GameProject/Images/MainMenuBackground.jpg").getImage();
+public class MainMenu extends JPanel {
+    private Image backgroundImage;
+    private GamePanel gamePanel;
+    private GameWindow window;
+
+    public MainMenu(GameWindow window){
+        this.window = window;
+        this.backgroundImage = new ImageIcon("src/GameProject/images/MainMenuBackground.jpg").getImage();
         this.setSize(WIDTH,HEIGHT);
         this.setLayout(null);
         this.setVisible(true);
         JButton start = new JButton("");
         start.setContentAreaFilled(false);
         start.addActionListener(e->  {
-          window.showGamePanel();
+            window.showGamePanel();
         });
 
         JButton instructions = new JButton("");
@@ -50,14 +46,10 @@ public class MainMenu extends JPanel {
         this.add(instructions);
         this.add(options);
         this.add(exit);
-
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(backgroundImage, 0, 0, WIDTH, HEIGHT, null);
+        g.drawImage(backgroundImage, 0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGHT, null);
     }
-
-
-
 }

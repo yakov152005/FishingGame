@@ -1,24 +1,20 @@
-package GameProject.InterfaceMenu;
+package GameProject.main;
 
 import javax.swing.*;
 import java.awt.*;
+import static utilz.Constants.InstructionsConstants.*;
 
 public class Instructions extends JPanel {
-    public static final int WIDTH = 1280;
-    public static final int HEIGHT = 720;
-
-    public static final int SUB_TITLES_SIZE = 100;
-    public static final  int IMAGE_LABEL_HEIGHT=180;
     private Image backgroundImage;
     private Image yellowFish;
     private Image bonusFish;
     private Image sharkImage;
     private Image pufferFishImage;
-    private Window window;
+    private GameWindow window;
 
-    public Instructions(Window window) {
+    public Instructions(GameWindow window) {
         this.window = window;
-        this.backgroundImage = new ImageIcon("src/GameProject/Images/InstructionsBackground.jpg").getImage();
+        this.backgroundImage = new ImageIcon("src/GameProject/images/InstructionsBackground.jpg").getImage();
         this.setSize(WIDTH, HEIGHT);
         JLabel title = new JLabel("Welcome to Dangerous Fishing!");
         title.setSize(200, 200);
@@ -48,13 +44,15 @@ public class Instructions extends JPanel {
         backToMainMenu.setText("Back to Main Menu");
         backToMainMenu.setFont(font);
         backToMainMenu.setForeground(Color.WHITE);
-        backToMainMenu.setBounds(WIDTH/3+60, WIDTH/3+80, 300, 100);
+        backToMainMenu.setBounds(INSTRUCTIONS_WIDTH/(3+60), INSTRUCTIONS_HEIGHT/(3+80), 300, 100);
         backToMainMenu.setContentAreaFilled(false);
         backToMainMenu.addActionListener(e -> {
             window.showMainMenu();
         });
         this.add(backToMainMenu);
+
 ////////IMAGE FOR INSTRUCTIONS///////////
+
         JLabel sharkLabel = new JLabel("Shark");
         sharkLabel.setSize(SUB_TITLES_SIZE, SUB_TITLES_SIZE);
         sharkLabel.setBounds(800, IMAGE_LABEL_HEIGHT, SUB_TITLES_SIZE, SUB_TITLES_SIZE);
@@ -71,10 +69,10 @@ public class Instructions extends JPanel {
         bonusFishLabel.setSize(SUB_TITLES_SIZE, SUB_TITLES_SIZE);
         bonusFishLabel.setBounds(490, IMAGE_LABEL_HEIGHT, SUB_TITLES_SIZE, SUB_TITLES_SIZE);
         this.add(bonusFishLabel);
-        this.yellowFish = new ImageIcon("src/GameProject/Images/Fish.png").getImage();
-        this.bonusFish = new ImageIcon("src/GameProject/Images/bonusFish.png").getImage();
-        this.sharkImage = new ImageIcon("src/GameProject/Images/Shark.png").getImage();
-        this.pufferFishImage = new ImageIcon("src/GameProject/Images/PufferFish.png").getImage();
+        this.yellowFish = new ImageIcon("src/GameProject/images/Fish.png").getImage();
+        this.bonusFish = new ImageIcon("src/GameProject/images/bonusFish.png").getImage();
+        this.sharkImage = new ImageIcon("src/GameProject/images/Shark.png").getImage();
+        this.pufferFishImage = new ImageIcon("src/GameProject/images/PufferFish.png").getImage();
 
 /////////////////////////////////////////
 
@@ -87,11 +85,11 @@ public class Instructions extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(backgroundImage, 0, 0, WIDTH, HEIGHT, null);
-        g.drawImage(yellowFish, 200, 130, 120, 120, null);
-        g.drawImage(bonusFish, 450, 160, 120, 62, null);
-        g.drawImage(sharkImage, 700, 145, 200, 80, null);
-        g.drawImage(pufferFishImage, 1000, 145, 96, 80, null);
+        g.drawImage(backgroundImage, 0, 0, INSTRUCTIONS_WIDTH, INSTRUCTIONS_HEIGHT, null);
+        g.drawImage(yellowFish, FISH_X, FISH_Y + 30, FISH_WIDTH + 20, FISH_HEIGHT + 40, null);
+        g.drawImage(bonusFish, (FISH_X * 2) + 50, FISH_Y + 60, FISH_WIDTH + 20, FISH_HEIGHT - 18 , null);
+        g.drawImage(sharkImage, (FISH_X * 3)+ 100, FISH_Y + 45, FISH_WIDTH + 100, FISH_HEIGHT, null);
+        g.drawImage(pufferFishImage, (FISH_X * 5), FISH_Y + 45, FISH_WIDTH - 4, FISH_HEIGHT, null);
     }
 
 }

@@ -1,27 +1,24 @@
-package GameProject.InterfaceMenu;
-
+package GameProject.main;
 import javax.swing.*;
 import java.awt.*;
+import static utilz.Constants.GameWindowConstants.*;
 
-public class Window extends JFrame {
+public class GameWindow extends JFrame {
     //1920x1080
-    public static final int WIDTH=1280;
-    public static final int HEIGHT=720;
     private GamePanel gamePanel;
     private Instructions instructions;
-   private MainMenu menu;
+    private MainMenu menu;
 
-    public Window(){
+    public GameWindow(){
        this.setTitle("Dangerous Fishing");
-      //  this.gamePanel=gamePanel;
 
       this.setLayout(new BorderLayout());
-      menu=new MainMenu(this);
+      menu = new MainMenu(this);
       add(menu,BorderLayout.CENTER);
-        this.setSize(WIDTH,HEIGHT);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
+      this.setSize(GAME_WINDOW_WIDTH,GAME_WINDOW_HEIGHT);
+      this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+      this.setLocationRelativeTo(null);
+      this.setVisible(true);
     }
 
     public void showGamePanel() {
@@ -32,30 +29,23 @@ public class Window extends JFrame {
         revalidate();
         repaint();
     }
-public void showInstructions(){
+
+    public void showInstructions(){
         getContentPane().remove(menu);
-        instructions= new Instructions(this);
+        instructions = new Instructions(this);
         add(instructions,BorderLayout.CENTER);
         revalidate();
         repaint();
-}
+    }
 
-public void showMainMenu(){
+    public void showMainMenu(){
     getContentPane().remove(instructions);
     menu=new MainMenu(this);
     add(menu,BorderLayout.CENTER);
     revalidate();
     repaint();
-}
-
-
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new Window();
-
-        });
     }
+
 }
 
 

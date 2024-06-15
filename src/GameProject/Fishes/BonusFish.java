@@ -1,8 +1,7 @@
-package GameProject.Fishes;
+package GameProject.fishes;
 
 import javax.swing.*;
 import java.awt.*;
-import java.security.PublicKey;
 
 public class BonusFish extends Fish {
     private int x;

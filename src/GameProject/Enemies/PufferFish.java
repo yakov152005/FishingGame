@@ -1,4 +1,4 @@
-package GameProject.Enemies;
+package GameProject.enemies;
 
 import javax.swing.*;
 import java.awt.*;

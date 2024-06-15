@@ -1,11 +1,11 @@
-package GameProject.InterfaceMenu;
+package GameProject.main;
 
-import GameProject.Enemies.PufferFish;
-import GameProject.Enemies.Shark;
-import GameProject.Fishes.BonusFish;
-import GameProject.Fishes.Fish;
-import GameProject.ObjectsGame.FishingRod;
-import GameProject.ObjectsGame.KeyboardListener;
+import GameProject.enemies.PufferFish;
+import GameProject.enemies.Shark;
+import GameProject.fishes.BonusFish;
+import GameProject.fishes.Fish;
+import GameProject.objectsGame.FishingRod;
+import GameProject.objectsGame.KeyboardListener;
 import GameProject.Levels;
 
 import javax.swing.*;
@@ -15,6 +15,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 public class GamePanel extends JPanel {
     private Image backgroundImage;
@@ -286,30 +287,28 @@ public class GamePanel extends JPanel {
 
     }
 
-    public void paintComponent(Graphics graphics) {
+    public void paintComponent(Graphics graphics) throws ConcurrentModificationException {
         graphics.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         super.paintComponent(graphics);
         this.rod.paint(graphics);
-        for (Shark sharks : this.sharks) {
-            sharks.paintComponent(graphics);
-        }
-        for (PufferFish currentPufferFish : this.pufferFishes) {
-            currentPufferFish.paintComponent(graphics);
-        }
-        for (Fish fishes : this.fishes) {
-            fishes.paintComponent(graphics);
-        }
-        for (BonusFish currentBonus : this.bonusFish) {
-            currentBonus.paintComponent(graphics);
-        }
-        for (Fish fishes : this.flippedFishes) {
-            fishes.paintComponent(graphics);
-        }
-
-
+        try {
+            for (Shark sharks : this.sharks) {
+                sharks.paintComponent(graphics);
+            }
+            for (PufferFish currentPufferFish : this.pufferFishes) {
+                currentPufferFish.paintComponent(graphics);
+            }
+            for (Fish fishes : this.fishes) {
+                fishes.paintComponent(graphics);
+            }
+            for (BonusFish currentBonus : this.bonusFish) {
+                currentBonus.paintComponent(graphics);
+            }
+            for (Fish fishes : this.flippedFishes) {
+                fishes.paintComponent(graphics);
+            }
+        } catch (Exception e) {}
         repaint();
-
-
     }
 
     private void showGameOver() {

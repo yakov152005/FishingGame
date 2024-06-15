@@ -1,11 +1,10 @@
 package GameProject;
 
-import GameProject.Enemies.PufferFish;
-import GameProject.Enemies.Shark;
-import GameProject.Fishes.BonusFish;
-import GameProject.Fishes.Fish;
+import GameProject.enemies.PufferFish;
+import GameProject.enemies.Shark;
+import GameProject.fishes.BonusFish;
+import GameProject.fishes.Fish;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Random;
 

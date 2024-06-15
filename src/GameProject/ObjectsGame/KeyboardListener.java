@@ -1,8 +1,8 @@
-package GameProject.ObjectsGame;
+package GameProject.objectsGame;
 
-import GameProject.Fishes.BonusFish;
-import GameProject.Fishes.Fish;
-import GameProject.InterfaceMenu.GamePanel;
+import GameProject.fishes.BonusFish;
+import GameProject.fishes.Fish;
+import GameProject.main.GamePanel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -20,19 +20,14 @@ public class KeyboardListener implements KeyListener {
 
 
     public KeyboardListener(GamePanel gamePanel, FishingRod rod,Fish fish,ArrayList<Fish> fishes,ArrayList<BonusFish> bonusFishes,BonusFish bonusFish){
-        this.gamePanel=gamePanel;
-        this.rod=rod;
-        this.fish=fish;
-        this.fishes=fishes;
-        this.bonusFishes=bonusFishes;
-        this.bonusFish=bonusFish;
+        this.gamePanel = gamePanel;
+        this.rod = rod;
+        this.fish = fish;
+        this.fishes = fishes;
+        this.bonusFishes = bonusFishes;
+        this.bonusFish = bonusFish;
         this.fishesToRemove = new ArrayList<>();
         this.bonusFishesToRemove=new ArrayList<>();
-
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
 
     }
 
@@ -60,26 +55,28 @@ public class KeyboardListener implements KeyListener {
                         this.gamePanel.addScore(3);
                     }
                 }
+
                 for (BonusFish bonusFishToRemove : this.bonusFishesToRemove) {
                     this.gamePanel.removeBonusFish(bonusFishToRemove);
                 }
 
                 this.bonusFishesToRemove.clear();
 
-
                 for (Fish fishToRemove : this.fishesToRemove) {
                     this.gamePanel.removeFish(fishToRemove);
                 }
-
-
             }
         }
             this.gamePanel.repaint();
-
     }
+
 
     @Override
     public void keyReleased(KeyEvent e) {
+
+    }
+    @Override
+    public void keyTyped(KeyEvent e) {
 
     }
 }

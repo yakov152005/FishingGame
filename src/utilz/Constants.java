@@ -1,8 +1,8 @@
 package utilz;
-
 import java.util.Random;
 
 public class Constants {
+
     public static class MainMenuConstants{
         public static final int BACKGROUND_WIDTH = 1280;
         public static final int BACKGROUND_HEIGHT = 720;
@@ -10,12 +10,25 @@ public class Constants {
         public static final int BUTTON_HEIGHT=110;
         public static final int BUTTON_WIDTH=410;
     }
+
     public static class GameWindowConstants{
         public static final int GAME_WINDOW_WIDTH = 1280;
         public static final int GAME_WINDOW_HEIGHT = 720;
     }
+    public static class GamePanelConstant{
+        public static final int GAME_PANEL_WIDTH = 1280;
+        public static final int GAME_PANEL_HEIGHT = 720;
+        public static final int HEARTH_WIDTH = 50;
+        public static final int HEARTH_HEIGHT = 50;
+        public static final int HEARTH_X = 50;
+        public static final int HEARTH_Y = 20;
+        public static final int SCORE_LABEL_WIDTH = 400;
+        public static final int SCORE_LABEL_HEIGHT = 400;
+    }
 
     public static class InstructionsConstants{
+        public static final int TITLE_WIDTH = 200;
+        public static final int TITLE_HEIGHT = 200;
         public static final int INSTRUCTIONS_WIDTH = 1280;
         public static final int INSTRUCTIONS_HEIGHT = 720;
         public static final int SUB_TITLES_SIZE = 100;
@@ -25,6 +38,7 @@ public class Constants {
         public static final int FISH_WIDTH = 100;
         public static final int FISH_HEIGHT = 80;
     }
+
     public static class LevelConstants{
         public static final int FISH_SPAWN_TIME = 7000;
         public static final int BONUS_FISH_SPAWN_TIME = 35000;
@@ -42,4 +56,45 @@ public class Constants {
         public static final int START_NUM_OF_SHARK = 8;
         public static final int START_NUM_OF_BONUS_FISH = 3;
     }
+
+    public static class FishingRodConstants{
+        public static final int MAX_LINE_LENGTH = 660 ; // הגובה המקסימלי  החוט
+        public static final int MIN_LINE_LENGTH = 10;  // הגובה המינימלי החוט
+        public static final int ROD_X = 617;
+        public static final int ROD_Y = 80;
+        public static final int HOOK_DIAMETER = 12;
+    }
+
+    public static class Images{
+        public static final String HOOK_PAINT = "src/images/HookPaint.png";
+        public static final String BACK_GROUND = "src/images/Background.png";
+        public static final String HEARTH = "src/images/heart.png";
+        public static final String MAIN_MENU_BACK_GROUND = "src/images/MainMenuBackground.jpg";
+        public static final String YELLOW_FISH = "src/images/Fish.png";
+        public static final String BONUS_FISH = "src/images/bonusFish.png";
+        public static final String SHARK_IMAGE = "src/images/Shark.png";
+        public static final String PUFFER_FISH_IMAGE = "src/images/PufferFish.png";
+        public static final String INSTRUCTIONS_BACK_GROUND = "src/images/InstructionsBackground.jpg";
+    }
+
+    public static class Audio{
+        public static final String AQUARIUM = "src/images/Aquarium.wav";
+    }
+
+    public static class Text{
+        public static final String TITLE_TEXT = "Welcome to Dangerous Fishing!";
+        public static final String INSTRUCTIONS_TEXT = """
+                in this game currently you can catch two type of fish  
+                1.yellow fish -also called regular fish that worth 1 point every catch  
+                2.gray fish - also called bonus fish that worth 3 points every catch! but It rarely spawns.
+                But it's not that easy, the game also has Sharks and Puffer Fish that multiply faster as the score goes up 
+                beyond the fact that you can't fish for a Shark, a shark can't touch the fishing line!
+                for that the game starts with 3 lives, every time you touch a shark or puff fish one life goes down!
+                Game operation:
+                1. Use the arrow keys to move the hook up and down
+                2. When a fish is caught on the rod, it must be brought up
+                 to the tip of the rod and only then press the space bar
+                As soon as you pressed the space key and the fish disappeared - a point was added to you.""";
+    }
+
 }

@@ -1,5 +1,4 @@
 package objectsGame;
-
 import fishes.BonusFish;
 import fishes.Fish;
 import main.GamePanel;
@@ -18,7 +17,6 @@ public class KeyboardListener implements KeyListener {
     private ArrayList<BonusFish> bonusFishes;
     private ArrayList<BonusFish> bonusFishesToRemove;
 
-
     public KeyboardListener(GamePanel gamePanel, FishingRod rod,Fish fish,ArrayList<Fish> fishes,ArrayList<BonusFish> bonusFishes,BonusFish bonusFish){
         this.gamePanel = gamePanel;
         this.rod = rod;
@@ -28,14 +26,15 @@ public class KeyboardListener implements KeyListener {
         this.bonusFish = bonusFish;
         this.fishesToRemove = new ArrayList<>();
         this.bonusFishesToRemove=new ArrayList<>();
-
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP ->this.rod.moveUp();
+
             case KeyEvent.VK_DOWN -> this.rod.moveDown();
+
             case KeyEvent.VK_SPACE -> {
                 for (int i = 0; i < fishes.size(); i++) {
                     Fish currentFish = fishes.get(i);
@@ -47,7 +46,6 @@ public class KeyboardListener implements KeyListener {
                 for (Fish fishToRemove : this.fishesToRemove) {
                     this.gamePanel.removeFish(fishToRemove);
                 }
-
                 for (int i = 0; i < bonusFishes.size(); i++) {
                     BonusFish currentFish = bonusFishes.get(i);
                     if (currentFish.getY() <= 80) {
@@ -67,16 +65,13 @@ public class KeyboardListener implements KeyListener {
                 }
             }
         }
-            this.gamePanel.repaint();
+        this.gamePanel.repaint();
     }
-
 
     @Override
     public void keyReleased(KeyEvent e) {
-
     }
     @Override
     public void keyTyped(KeyEvent e) {
-
     }
 }

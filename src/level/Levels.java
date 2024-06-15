@@ -70,72 +70,10 @@ public class Levels {
             throw new RuntimeException(e);
         }
     }
-
     private enum FishType {
         FISH,
         PUFFER_FISH,
         BONUS_FISH,
         SHARK
     }
-
-//    public void levelHardness(int multiply, int divide) {
-//        spawnFishLevel(FISH_SPAWN_TIME / divide, START_NUM_OF_FISH * multiply);
-//        spawnPufferFish(PUFFER_FISH_SPAWN_TIME / divide, START_NUM_OF_PUFFERS * multiply);
-//        spawnBonusFish(BONUS_FISH_SPAWN_TIME / divide, START_NUM_OF_BONUS_FISH * multiply);
-//        spawnSharksLevel(SHARK_SPAWN_TIME / divide, START_NUM_OF_SHARK * multiply);
-//    }
-
-//    public void spawnSharksLevel(long time, int numberToSpawn) {
-//        new Thread(() -> {
-//            int min = 0;
-//            while (min < numberToSpawn) {
-//                this.sharks.add(new Shark(random.nextInt(FISHES_WHO_START_FROM_LEFT, 0), random.nextInt(OCEAN_SHARK_START_HEIGHT, OCEAN_END_BOTTOM_LIMIT)));
-//                min++;
-//                sleep(time);
-//            }
-//        }).start();
-//    }
-//
-//    public void spawnFishLevel(long time, int numberToSpawn) {
-//        new Thread(() -> {
-//            int min = 0;
-//            while (min < numberToSpawn) {
-//                this.fishes.add(new Fish(random.nextInt(FISHES_WHO_START_FROM_LEFT, 0), random.nextInt(OCEAN_FISHES_START_UPPER_LIMIT, OCEAN_END_BOTTOM_LIMIT)));
-//                min++;
-//                sleep(time);
-//            }
-//        }).start();
-//    }
-//
-//    public void spawnBonusFish(long time, int numberToSpawn) {
-//        new Thread(() -> {
-//            int min = 0;
-//            while (min < numberToSpawn) {
-//                this.pufferFishes.add(new PufferFish(random.nextInt(FISHES_WHO_START_FROM_RIGHT, FISHES_WHO_START_FROM_RIGHT + 50), random.nextInt(OCEAN_FISHES_START_UPPER_LIMIT, OCEAN_END_BOTTOM_LIMIT)));
-//                min++;
-//                sleep(time);
-//            }
-//        }).start();
-//    }
-//
-//    public void spawnPufferFish(long time, int numberToSpawn) {
-//        new Thread(() -> {
-//            int min = 0;
-//            while (min < numberToSpawn) {
-//                this.bonusFish.add(new BonusFish(random.nextInt(FISHES_WHO_START_FROM_RIGHT, FISHES_WHO_START_FROM_RIGHT + 50), random.nextInt(OCEAN_FISHES_START_UPPER_LIMIT, OCEAN_END_BOTTOM_LIMIT)));
-//                min++;
-//                sleep(time);
-//
-//
-//            }
-//        }).start();
-//    }
-//
-//    public void sleep(long millis) {
-//        try {
-//            Thread.sleep(millis);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 }

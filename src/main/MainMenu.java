@@ -2,6 +2,7 @@ package main;
 import javax.swing.*;
 import java.awt.*;
 
+import static utilz.Constants.Images.MAIN_MENU_BACK_GROUND;
 import static utilz.Constants.MainMenuConstants.*;
 
 public class MainMenu extends JPanel {
@@ -10,11 +11,14 @@ public class MainMenu extends JPanel {
     private GameWindow window;
 
     public MainMenu(GameWindow window){
+
         this.window = window;
-        this.backgroundImage = new ImageIcon("src/images/MainMenuBackground.jpg").getImage();
+        this.backgroundImage = new ImageIcon(MAIN_MENU_BACK_GROUND).getImage();
+
         this.setSize(WIDTH,HEIGHT);
         this.setLayout(null);
         this.setVisible(true);
+
         JButton start = new JButton("");
         start.setContentAreaFilled(false);
         start.addActionListener(e->  {
@@ -27,13 +31,13 @@ public class MainMenu extends JPanel {
         instructions.addActionListener(e ->{
             window.showInstructions();
         });
+
         JButton options = new JButton("");
         options.setContentAreaFilled(false);
 
         JButton exit = new JButton("");
         exit.addActionListener(e->  {
             System.exit(0);
-
         });
 
         exit.setContentAreaFilled(false);

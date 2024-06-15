@@ -1,11 +1,12 @@
 package main;
-
 import javax.swing.*;
 import java.awt.*;
+import static utilz.Constants.Images.*;
 import static utilz.Constants.InstructionsConstants.*;
+import static utilz.Constants.Text.*;
 
 public class Instructions extends JPanel {
-    private Image backgroundImage;
+    private Image instructionsBackGround;
     private Image yellowFish;
     private Image bonusFish;
     private Image sharkImage;
@@ -14,27 +15,18 @@ public class Instructions extends JPanel {
 
     public Instructions(GameWindow window) {
         this.window = window;
-        this.backgroundImage = new ImageIcon("src/images/InstructionsBackground.jpg").getImage();
+
+        this.instructionsBackGround = new ImageIcon(INSTRUCTIONS_BACK_GROUND).getImage();
         this.setSize(WIDTH, HEIGHT);
-        JLabel title = new JLabel("Welcome to Dangerous Fishing!");
-        title.setSize(200, 200);
-        title.setBounds(400, 10, 600, 200);
+
+        JLabel title = new JLabel(TITLE_TEXT);
+        title.setSize(TITLE_WIDTH, TITLE_HEIGHT);
+        title.setBounds(400, 10, (TITLE_WIDTH * 3), TITLE_HEIGHT);
         Font fontTitle = new Font("Arial", Font.BOLD, 35);
         title.setFont(fontTitle);
+
         JTextArea instructions = new JTextArea(10, 20);
-        instructions.setText("""
-                in this game currently you can catch two type of fish  
-                1.yellow fish -also called regular fish that worth 1 point every catch  
-                2.gray fish - also called bonus fish that worth 3 points every catch! but It rarely spawns.
-                But it's not that easy, the game also has Sharks and Puffer Fish that multiply faster as the score goes up 
-                beyond the fact that you can't fish for a Shark, a shark can't touch the fishing line!
-                for that the game starts with 3 lives, every time you touch a shark or puff fish one life goes down!
-                Game operation:
-                1. Use the arrow keys to move the hook up and down
-                2. When a fish is caught on the rod, it must be brought up
-                 to the tip of the rod and only then press the space bar
-                As soon as you pressed the space key and the fish disappeared - a point was added to you."""
-        );
+        instructions.setText(INSTRUCTIONS_TEXT);
         Font font = new Font("Arial", Font.BOLD, 18);
         instructions.setFont(font);
         instructions.setForeground(Color.WHITE);
@@ -57,6 +49,7 @@ public class Instructions extends JPanel {
         sharkLabel.setSize(SUB_TITLES_SIZE, SUB_TITLES_SIZE);
         sharkLabel.setBounds(800, IMAGE_LABEL_HEIGHT, SUB_TITLES_SIZE, SUB_TITLES_SIZE);
         this.add(sharkLabel);
+
         JLabel pufferFishLabel = new JLabel("Puffer Fish");
         pufferFishLabel.setSize(SUB_TITLES_SIZE, SUB_TITLES_SIZE);
         pufferFishLabel.setBounds(1015, IMAGE_LABEL_HEIGHT, SUB_TITLES_SIZE, SUB_TITLES_SIZE);
@@ -69,10 +62,10 @@ public class Instructions extends JPanel {
         bonusFishLabel.setSize(SUB_TITLES_SIZE, SUB_TITLES_SIZE);
         bonusFishLabel.setBounds(490, IMAGE_LABEL_HEIGHT, SUB_TITLES_SIZE, SUB_TITLES_SIZE);
         this.add(bonusFishLabel);
-        this.yellowFish = new ImageIcon("src/images/Fish.png").getImage();
-        this.bonusFish = new ImageIcon("src/images/bonusFish.png").getImage();
-        this.sharkImage = new ImageIcon("src/images/Shark.png").getImage();
-        this.pufferFishImage = new ImageIcon("src/images/PufferFish.png").getImage();
+        this.yellowFish = new ImageIcon(YELLOW_FISH).getImage();
+        this.bonusFish = new ImageIcon(BONUS_FISH).getImage();
+        this.sharkImage = new ImageIcon(SHARK_IMAGE).getImage();
+        this.pufferFishImage = new ImageIcon(PUFFER_FISH_IMAGE).getImage();
 
 /////////////////////////////////////////
 
@@ -85,7 +78,7 @@ public class Instructions extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(backgroundImage, 0, 0, INSTRUCTIONS_WIDTH, INSTRUCTIONS_HEIGHT, null);
+        g.drawImage(instructionsBackGround, 0, 0, INSTRUCTIONS_WIDTH, INSTRUCTIONS_HEIGHT, null);
         g.drawImage(yellowFish, FISH_X, FISH_Y + 30, FISH_WIDTH + 20, FISH_HEIGHT + 40, null);
         g.drawImage(bonusFish, (FISH_X * 2) + 50, FISH_Y + 60, FISH_WIDTH + 20, FISH_HEIGHT - 18 , null);
         g.drawImage(sharkImage, (FISH_X * 3)+ 100, FISH_Y + 45, FISH_WIDTH + 100, FISH_HEIGHT, null);

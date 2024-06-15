@@ -1,5 +1,4 @@
 package main;
-
 import enemies.PufferFish;
 import enemies.Shark;
 import fishes.BonusFish;
@@ -7,8 +6,6 @@ import fishes.Fish;
 import level.Levels;
 import objectsGame.FishingRod;
 import objectsGame.KeyboardListener;
-
-
 import javax.swing.*;
 import java.awt.*;
 import javax.sound.sampled.AudioInputStream;
@@ -17,6 +14,9 @@ import javax.sound.sampled.Clip;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+import static utilz.Constants.Audio.AQUARIUM;
+import static utilz.Constants.GamePanelConstant.*;
+import static utilz.Constants.Images.*;
 
 public class GamePanel extends JPanel {
     private Image backgroundImage;
@@ -49,7 +49,7 @@ public class GamePanel extends JPanel {
     public GamePanel() {
         this.setFocusable(true);
         this.requestFocusInWindow();
-        this.backgroundImage = new ImageIcon("src/images/Background.png").getImage();
+        this.backgroundImage = new ImageIcon(BACK_GROUND).getImage();
         this.setSize(WIDTH, HEIGHT);
         this.setBackground(new Color(0, 0, 0, 0));
         this.setLayout(null);
@@ -57,7 +57,7 @@ public class GamePanel extends JPanel {
         life();
         this.rod = new FishingRod();
         this.add(this.rod);
-        this.Music("src/images/Aquarium.wav");
+        this.Music(AQUARIUM);
         this.fish = new Fish(0, 0);
         this.bonusFish = new ArrayList<>();
         this.shark = new Shark(0, 0);
@@ -97,13 +97,11 @@ public class GamePanel extends JPanel {
                 for (Fish currentFish : fishes) {
                     currentFish.moveRight();
 
-                    if (checkCollision(currentFish, rod) && !this.getInBag) {
+                    if (checkCollision(currentFish, rod) && !this.getInBag)
                         currentFish.setCaught(true);
-                    }
 
-                    if (currentFish.isCaught() && !this.getInBag) {
+                    if (currentFish.isCaught() && !this.getInBag)
                         currentFish.setPosition(rod.getHookX() - currentFish.getX() / 7, rod.getHookY() - currentFish.getY() / 7); // כיוון תמונה שהדג בחכה
-                    }
 
                 }
 
@@ -111,44 +109,39 @@ public class GamePanel extends JPanel {
                     if (!currentBonusFish.isCaught())
                         currentBonusFish.moveLeft();
 
-                    if (checkCollisionWithBonus(currentBonusFish, rod) && !this.getInBag) {
+                    if (checkCollisionWithBonus(currentBonusFish, rod) && !this.getInBag)
                         currentBonusFish.setCaught(true);
 
-                    }
-                    if (currentBonusFish.isCaught() && !this.getInBag) {
+                    if (currentBonusFish.isCaught() && !this.getInBag)
                         currentBonusFish.setPosition(rod.getHookX() - currentBonusFish.getX() / 20, rod.getHookY() - currentBonusFish.getY() / 25); // הזז את מיקום הדג לקרוב לחכה
-                    }
-
 
                 }
 
 
                 for (PufferFish currentPuffFish : pufferFishes) {
                     currentPuffFish.moveLeft();
-                    if (collisionWithPufferFish(currentPuffFish, rod)) {
 
+                    if (collisionWithPufferFish(currentPuffFish, rod)) {
                         checkLives(lives);
                         toRemovePufferFish.add(currentPuffFish);
-
                     }
                 }
                 removePufferFish();
 
                 for (Shark currentShark : sharks) {
                     currentShark.moveRight();
+
                     if (collisionWithShark(currentShark, rod)) {
                         checkLives(lives);
                         toRemoveSharks.add(currentShark);
                     }
                 }
                 removeSharksFromList();
-                if (this.lives == 0) {
+
+                if (this.lives == 0)
                     showGameOver();
 
-                }
-
                 sleep(50);
-
                 repaint();
             }
         }).start();
@@ -159,9 +152,8 @@ public class GamePanel extends JPanel {
             fish.setFishImage();
             fish.setCaught(true);
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public boolean collisionWithShark(Shark shark, FishingRod rod) {
@@ -185,9 +177,8 @@ public class GamePanel extends JPanel {
             bonus.setFishImage();
             bonus.setCaught(true);
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public void removeSharksFromList() {
@@ -216,24 +207,27 @@ public class GamePanel extends JPanel {
             case 3:
                 leftHeart.setVisible(false);
                 break;
-
         }
 
     }
 
     public void life() {
+
         leftHeart = new JLabel();
-        leftHeart.setIcon(new ImageIcon("src/images/heart.png"));
-        leftHeart.setBounds(50, 20, 50, 50);
+        leftHeart.setIcon(new ImageIcon(HEARTH));
+        leftHeart.setBounds(HEARTH_X, HEARTH_Y, HEARTH_WIDTH, HEARTH_HEIGHT);
         this.add(leftHeart);
+
         middleHeart = new JLabel();
-        middleHeart.setIcon(new ImageIcon("src/images/heart.png"));
-        middleHeart.setBounds(105, 20, 50, 50);
+        middleHeart.setIcon(new ImageIcon(HEARTH));
+        middleHeart.setBounds((HEARTH_X * 2 )+ 5, HEARTH_Y, HEARTH_WIDTH, HEARTH_HEIGHT);
         this.add(middleHeart);
+
         rightHeart = new JLabel();
-        rightHeart.setIcon(new ImageIcon("src/images/heart.png"));
-        rightHeart.setBounds(160, 20, 50, 50);
+        rightHeart.setIcon(new ImageIcon(HEARTH));
+        rightHeart.setBounds((HEARTH_X * 3) + 10, HEARTH_Y, HEARTH_WIDTH, HEARTH_HEIGHT);
         this.add(rightHeart);
+
         new JLabel();
     }
 
@@ -241,6 +235,7 @@ public class GamePanel extends JPanel {
     public void checkDifficult(int score) {
         int newLevel = currentLevel;
         int toDived = 1;
+
         if (score <= 5) {
             newLevel = 1;
         } else if (score >= 10 && score < 25) {
@@ -260,8 +255,8 @@ public class GamePanel extends JPanel {
 
     public void scoreLabel() {
         this.scoreLabel = new JLabel("" + this.score);
-        this.scoreLabel.setSize(400, 400);
-        this.scoreLabel.setBounds(245, -30, 400, 400);
+        this.scoreLabel.setSize(SCORE_LABEL_WIDTH, SCORE_LABEL_HEIGHT);
+        this.scoreLabel.setBounds(245, -30, SCORE_LABEL_WIDTH, SCORE_LABEL_HEIGHT);
         Font labelFont = new Font("Arial", Font.BOLD, 42);
         this.scoreLabel.setFont(labelFont);
         this.add(scoreLabel);
@@ -272,20 +267,17 @@ public class GamePanel extends JPanel {
         this.scoreLabel.setText("" + this.score);
         System.out.println(score);
         checkDifficult(score);
-
     }
 
 
     public void removeFish(Fish fish) {
         this.fishes.remove(fish);
         this.getInBag = false;
-
     }
 
     public void removeBonusFish(BonusFish fish) {
         this.bonusFish.remove(fish);
         this.getInBag = false;
-
     }
 
     public void paintComponent(Graphics graphics) throws ConcurrentModificationException {
@@ -313,10 +305,11 @@ public class GamePanel extends JPanel {
     }
 
     private void showGameOver() {
-        JLabel gameOverLabel = new JLabel("GAME OVER");
+        JLabel gameOverLabel = new JLabel("|GAME OVER|");
         gameOverLabel.setFont(new Font("Arial", Font.BOLD, 72));
         gameOverLabel.setForeground(Color.RED);
-        gameOverLabel.setBounds(WIDTH / 3 - 30, HEIGHT / 2, 900, 100);
+        gameOverLabel.setBounds(GAME_PANEL_WIDTH / 3 - 30, GAME_PANEL_HEIGHT/ 2, 900, 100);
+
         JButton exitButton = new JButton();
         exitButton.setText("Exit");
         exitButton.setBounds(500, 200, 200, 100);
@@ -326,9 +319,7 @@ public class GamePanel extends JPanel {
         });
         this.add(exitButton);
         this.add(gameOverLabel);
-        // this.repaint();
     }
-
 
     public void sleep(int millis) {
         try {

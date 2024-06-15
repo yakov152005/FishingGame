@@ -1,4 +1,4 @@
-package objectsGame;
+package objects;
 import fishes.BonusFish;
 import fishes.Fish;
 import main.GamePanel;

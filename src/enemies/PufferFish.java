@@ -5,26 +5,29 @@ import java.awt.*;
 import static utilz.Constants.Images.PUFFER_FISH_IMAGE;
 import static utilz.Constants.FishConstants.*;
 
-public class PufferFish extends JPanel {
-    private int x;
-    private int y;
+public class PufferFish extends Enemy implements EnemiesMethods {
     private Image pufferFishImage;
 
     public PufferFish(int x, int y) {
-        this.x = x;
-        this.y = y;
+        super(x,y);
         this.pufferFishImage = new ImageIcon(PUFFER_FISH_IMAGE).getImage();
     }
 
+    @Override
+    public void moveRight() {
+
+    }
+    @Override
     public void moveLeft() {
-        this.x -= 5;
+        setX(getX() -5); ;
     }
     public Rectangle getPufferFishBounds() {
-        return new Rectangle(this.x + 10, this.y + 17, HEIGHT_DEFAULT - 5, HEIGHT_DEFAULT - 10);
+        return new Rectangle(getX() + 10, getY() + 17, HEIGHT_DEFAULT - 5, HEIGHT_DEFAULT - 10);
     }
+    @Override
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
-        graphics.drawImage(pufferFishImage, x, y, this);
-        graphics.drawRect(this.x + 10, this.y + 17, HEIGHT_DEFAULT - 5, HEIGHT_DEFAULT - 10);
+        graphics.drawImage(pufferFishImage, getX(), getY(), this);
+        graphics.drawRect(getX() + 10, getY() + 17, HEIGHT_DEFAULT - 5, HEIGHT_DEFAULT - 10);
     }
 }

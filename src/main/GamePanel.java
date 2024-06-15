@@ -4,17 +4,12 @@ import enemies.Shark;
 import fishes.BonusFish;
 import fishes.Fish;
 import level.Levels;
-import objectsGame.FishingRod;
-import objectsGame.KeyboardListener;
+import objects.FishingRod;
+import objects.KeyboardListener;
 import javax.swing.*;
 import java.awt.*;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
-import static utilz.Constants.Audio.AQUARIUM;
 import static utilz.Constants.GamePanelConstant.*;
 import static utilz.Constants.Images.*;
 import static utilz.Constants.Text.GAME_OVER_TEXT;
@@ -56,7 +51,6 @@ public class GamePanel extends JPanel {
         life();
         this.rod = new FishingRod();
         this.add(this.rod);
-        this.Music(AQUARIUM);
         this.fish = new Fish(0, 0);
         this.bonusFish = new ArrayList<>();
         this.shark = new Shark(0, 0);
@@ -81,19 +75,7 @@ public class GamePanel extends JPanel {
         this.setFocusable(true);
         this.mainGameLoop();
         this.setVisible(true);
-    }
 
-    public void Music(String filePath) {
-        try {
-            File audioFile = new File(filePath);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioStream);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-            clip.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public void mainGameLoop() {

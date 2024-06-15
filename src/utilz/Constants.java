@@ -95,19 +95,24 @@ public class Constants {
     }
 
     public static class Text{
+        public static final String FOR_BACK = "Back to Main Menu";
+        public static final String FOR_INSTRUCTION_WINDOW = "Dangerous Fishing";
         public static final String GAME_OVER_TEXT = "|GAME OVER|";
+        public static final String TITLE_TEXT_OPTION = "Developed By:";
+        public static final String UNDER_TITLE_TEXT = "Daniel Gino, Yakov Ben-Hemo, Shay Ozer";
         public static final String TITLE_TEXT = "Welcome to Dangerous Fishing!";
         public static final String INSTRUCTIONS_TEXT = """
-                in this game currently you can catch two type of fish  
+                in this game currently you can catch two type of fish:  
                 1.yellow fish -also called regular fish that worth 1 point every catch  
                 2.gray fish - also called bonus fish that worth 3 points every catch! but It rarely spawns.
+                
                 But it's not that easy, the game also has Sharks and Puffer Fish that multiply faster as the score goes up 
                 beyond the fact that you can't fish for a Shark, a shark can't touch the fishing line!
                 for that the game starts with 3 lives, every time you touch a shark or puff fish one life goes down!
+                
                 Game operation:
                 1. Use the arrow keys to move the hook up and down
-                2. When a fish is caught on the rod, it must be brought up
-                 to the tip of the rod and only then press the space bar
+                2. When a fish is caught on the rod, it must be brought up to the tip of the rod and only then press the space bar
                 As soon as you pressed the space key and the fish disappeared - a point was added to you.""";
     }
 

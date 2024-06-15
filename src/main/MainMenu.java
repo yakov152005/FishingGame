@@ -1,13 +1,15 @@
 package main;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 import static utilz.Constants.Images.MAIN_MENU_BACK_GROUND;
 import static utilz.Constants.MainMenuConstants.*;
 
 public class MainMenu extends JPanel {
     private Image backgroundImage;
-    private GamePanel gamePanel;
     private GameWindow window;
 
     public MainMenu(GameWindow window){
@@ -34,6 +36,10 @@ public class MainMenu extends JPanel {
 
         JButton options = new JButton("");
         options.setContentAreaFilled(false);
+
+        options.addActionListener(e ->{
+            window.showOption();
+        });
 
         JButton exit = new JButton("");
         exit.addActionListener(e->  {

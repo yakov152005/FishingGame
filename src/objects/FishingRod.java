@@ -1,4 +1,4 @@
-package objectsGame;
+package objects;
 import javax.swing.*;
 import java.awt.*;
 import static utilz.Constants.FishingRodConstants.*;

@@ -1,6 +1,7 @@
 package fishes;
 import javax.swing.*;
 import java.awt.*;
+import static utilz.Constants.Images.*;
 
 public class BonusFish extends Fish {
     private int x;
@@ -11,7 +12,7 @@ public class BonusFish extends Fish {
         super(x, y);
         this.x = x;
         this.y = y;
-        this.bonusImage = new ImageIcon("src/images/bonusfliped.png").getImage();
+        this.bonusImage = new ImageIcon(BONUS_IMAGE).getImage();
     }
     @Override
     public int getX() {
@@ -22,7 +23,7 @@ public class BonusFish extends Fish {
         return this.y;
     }
     public void setFishImage() {
-        this.bonusImage = new ImageIcon("src/images/bonusFishCatch.png").getImage();
+        this.bonusImage = new ImageIcon(BONUS_FISH_CATCH).getImage();
     }
     public void setPosition(int x, int y) {
         this.x = x;

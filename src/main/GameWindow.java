@@ -1,6 +1,9 @@
 package main;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import static utilz.Constants.GameWindowConstants.*;
 
 public class GameWindow extends JFrame {
@@ -21,31 +24,34 @@ public class GameWindow extends JFrame {
       this.setVisible(true);
     }
 
+
     public void showGamePanel() {
         getContentPane().remove(menu);
         gamePanel = new GamePanel();
         add(gamePanel, BorderLayout.CENTER);
         gamePanel.requestFocusInWindow();
-        revalidate();
-        repaint();
+        update();
     }
 
     public void showInstructions(){
         getContentPane().remove(menu);
         instructions = new main.Instructions(this);
         add(instructions,BorderLayout.CENTER);
-        revalidate();
-        repaint();
+        update();
     }
 
     public void showMainMenu(){
-    getContentPane().remove(instructions);
-    menu=new MainMenu(this);
-    add(menu,BorderLayout.CENTER);
-    revalidate();
-    repaint();
+        getContentPane().remove(instructions);
+        menu = new MainMenu(this);
+        add(menu,BorderLayout.CENTER);
+        update();
+
     }
 
+    public void update(){
+        revalidate();
+        repaint();
+    }
 }
 
 

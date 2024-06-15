@@ -1,6 +1,8 @@
 package enemies;
 import javax.swing.*;
 import java.awt.*;
+import static utilz.Constants.FishConstants.*;
+import static utilz.Constants.Images.SHARK_IMAGE;
 
 public class Shark extends JPanel {
     private Image sharkImage;
@@ -9,21 +11,19 @@ public class Shark extends JPanel {
     private int y;
 
     public Shark(int x, int y) {
-        this.bodyLimit = new Rectangle(x + 20, y + 20, 400, 100);
-        this.sharkImage = new ImageIcon("src/images/Shark.png").getImage();
+        this.bodyLimit = new Rectangle(x + 20, y + 20, WIDTH_DEFAULT, HEIGHT_DEFAULT);
+        this.sharkImage = new ImageIcon(SHARK_IMAGE).getImage();
         this.setPreferredSize(new Dimension(sharkImage.getWidth(this), sharkImage.getHeight(this)));
         this.x = x;
         this.y = y;
     }
 
     public Rectangle getSharkBounds() {
-        return new Rectangle(x + 20, y + 20, 400, 100);
+        return new Rectangle(x + 20, y + 20, WIDTH_DEFAULT, HEIGHT_DEFAULT);
     }
-
     public void moveRight() {
         this.x += 4;
     }
-
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

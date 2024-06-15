@@ -32,42 +32,35 @@ public class Instructions extends JPanel {
         instructions.setForeground(Color.WHITE);
         instructions.setBounds(165, 250, 985, 412);
         instructions.setBackground(new Color(50, 75, 150, 190));
+
         JButton backToMainMenu = new JButton();
         backToMainMenu.setText("Back to Main Menu");
         backToMainMenu.setFont(font);
-        backToMainMenu.setForeground(Color.WHITE);
-        backToMainMenu.setBounds(INSTRUCTIONS_WIDTH/(3+60), INSTRUCTIONS_HEIGHT/(3+80), 300, 100);
+        backToMainMenu.setForeground(Color.BLACK);
+        backToMainMenu.setBounds((int) (INSTRUCTIONS_WIDTH/ POS) - 400, (int) (INSTRUCTIONS_HEIGHT/ POS) + 50, 300, 100);
         backToMainMenu.setContentAreaFilled(false);
         backToMainMenu.addActionListener(e -> {
             window.showMainMenu();
         });
+
         this.add(backToMainMenu);
 
-////////IMAGE FOR INSTRUCTIONS///////////
-
         JLabel sharkLabel = new JLabel("Shark");
-        sharkLabel.setSize(SUB_TITLES_SIZE, SUB_TITLES_SIZE);
-        sharkLabel.setBounds(800, IMAGE_LABEL_HEIGHT, SUB_TITLES_SIZE, SUB_TITLES_SIZE);
-        this.add(sharkLabel);
+        setJLabelFish(sharkLabel,800);
 
         JLabel pufferFishLabel = new JLabel("Puffer Fish");
-        pufferFishLabel.setSize(SUB_TITLES_SIZE, SUB_TITLES_SIZE);
-        pufferFishLabel.setBounds(1015, IMAGE_LABEL_HEIGHT, SUB_TITLES_SIZE, SUB_TITLES_SIZE);
-        this.add(pufferFishLabel);
+        setJLabelFish(pufferFishLabel,1015);
+
         JLabel yellowFishLabel = new JLabel("Regular Fish");
-        yellowFishLabel.setSize(SUB_TITLES_SIZE, SUB_TITLES_SIZE);
-        yellowFishLabel.setBounds(230, IMAGE_LABEL_HEIGHT, SUB_TITLES_SIZE, SUB_TITLES_SIZE);
-        this.add(yellowFishLabel);
+        setJLabelFish(yellowFishLabel,230);
+
         JLabel bonusFishLabel = new JLabel("Bonus Fish");
-        bonusFishLabel.setSize(SUB_TITLES_SIZE, SUB_TITLES_SIZE);
-        bonusFishLabel.setBounds(490, IMAGE_LABEL_HEIGHT, SUB_TITLES_SIZE, SUB_TITLES_SIZE);
-        this.add(bonusFishLabel);
+        setJLabelFish(bonusFishLabel,490);
+
         this.yellowFish = new ImageIcon(YELLOW_FISH).getImage();
         this.bonusFish = new ImageIcon(BONUS_FISH).getImage();
         this.sharkImage = new ImageIcon(SHARK_IMAGE).getImage();
         this.pufferFishImage = new ImageIcon(PUFFER_FISH_IMAGE).getImage();
-
-/////////////////////////////////////////
 
         this.add(instructions);
         this.add(title);
@@ -75,6 +68,11 @@ public class Instructions extends JPanel {
         this.setVisible(true);
     }
 
+    public void setJLabelFish(JLabel type, int x){
+        type.setSize(SUB_TITLES_SIZE, SUB_TITLES_SIZE);
+        type.setBounds(x, IMAGE_LABEL_HEIGHT, SUB_TITLES_SIZE, SUB_TITLES_SIZE);
+        this.add(type);
+    }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

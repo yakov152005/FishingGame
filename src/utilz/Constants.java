@@ -24,6 +24,8 @@ public class Constants {
         public static final int HEARTH_Y = 20;
         public static final int SCORE_LABEL_WIDTH = 400;
         public static final int SCORE_LABEL_HEIGHT = 400;
+        public static final int WIDTH_DEFAULT = 200;
+        public static final int HEIGHT_DEFAULT = 100;
     }
 
     public static class InstructionsConstants{
@@ -37,6 +39,7 @@ public class Constants {
         public static final int FISH_Y = 100;
         public static final int FISH_WIDTH = 100;
         public static final int FISH_HEIGHT = 80;
+        public static final float POS = 1.5f;
     }
 
     public static class LevelConstants{
@@ -65,6 +68,12 @@ public class Constants {
         public static final int HOOK_DIAMETER = 12;
     }
 
+    public static class FishConstants{
+        public static final int FISH_BOX_SIZE = 25;
+        public static final int WIDTH_DEFAULT = 400;
+        public static final int HEIGHT_DEFAULT = 100;
+    }
+
     public static class Images{
         public static final String HOOK_PAINT = "src/images/HookPaint.png";
         public static final String BACK_GROUND = "src/images/Background.png";
@@ -75,6 +84,10 @@ public class Constants {
         public static final String SHARK_IMAGE = "src/images/Shark.png";
         public static final String PUFFER_FISH_IMAGE = "src/images/PufferFish.png";
         public static final String INSTRUCTIONS_BACK_GROUND = "src/images/InstructionsBackground.jpg";
+        public static final String FISH_IMAGE = "src/images/fish.png";
+        public static final String FISH_CATCH = "src/images/FishCatch.png";
+        public static final String BONUS_IMAGE = "src/images/bonusfliped.png";
+        public static final String BONUS_FISH_CATCH = "src/images/bonusFishCatch.png";
     }
 
     public static class Audio{
@@ -82,6 +95,7 @@ public class Constants {
     }
 
     public static class Text{
+        public static final String GAME_OVER_TEXT = "|GAME OVER|";
         public static final String TITLE_TEXT = "Welcome to Dangerous Fishing!";
         public static final String INSTRUCTIONS_TEXT = """
                 in this game currently you can catch two type of fish  

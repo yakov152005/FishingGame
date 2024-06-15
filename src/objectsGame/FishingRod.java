@@ -1,11 +1,8 @@
-package GameProject.objectsGame;
-
+package objectsGame;
 import javax.swing.*;
 import java.awt.*;
 
 public class FishingRod extends JPanel {
-   // private int x = 300;
-    //private int y = 130;
     private int lineLength = 80;
     private int rodX = 617;
     private int rodY = 80;
@@ -14,7 +11,7 @@ public class FishingRod extends JPanel {
     private final int MIN_LINE_LENGTH = 10;  // הגובה המינימלי החוט
     private Image hookPhoto;
     public FishingRod() {
-   this.hookPhoto=new ImageIcon("src/GameProject/Images/HookPaint.png").getImage();
+   this.hookPhoto=new ImageIcon("src/images/HookPaint.png").getImage();
 
     }
 

@@ -1,12 +1,13 @@
-package GameProject.main;
+package main;
 
-import GameProject.enemies.PufferFish;
-import GameProject.enemies.Shark;
-import GameProject.fishes.BonusFish;
-import GameProject.fishes.Fish;
-import GameProject.objectsGame.FishingRod;
-import GameProject.objectsGame.KeyboardListener;
-import GameProject.Levels;
+import enemies.PufferFish;
+import enemies.Shark;
+import fishes.BonusFish;
+import fishes.Fish;
+import level.Levels;
+import objectsGame.FishingRod;
+import objectsGame.KeyboardListener;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,7 +49,7 @@ public class GamePanel extends JPanel {
     public GamePanel() {
         this.setFocusable(true);
         this.requestFocusInWindow();
-        this.backgroundImage = new ImageIcon("src/GameProject/Images/Background.png").getImage();
+        this.backgroundImage = new ImageIcon("src/images/Background.png").getImage();
         this.setSize(WIDTH, HEIGHT);
         this.setBackground(new Color(0, 0, 0, 0));
         this.setLayout(null);
@@ -56,7 +57,7 @@ public class GamePanel extends JPanel {
         life();
         this.rod = new FishingRod();
         this.add(this.rod);
-        this.Music("src/GameProject/Images/Aquarium.wav");
+        this.Music("src/images/Aquarium.wav");
         this.fish = new Fish(0, 0);
         this.bonusFish = new ArrayList<>();
         this.shark = new Shark(0, 0);
@@ -222,15 +223,15 @@ public class GamePanel extends JPanel {
 
     public void life() {
         leftHeart = new JLabel();
-        leftHeart.setIcon(new ImageIcon("src/GameProject/Images/heart.png"));
+        leftHeart.setIcon(new ImageIcon("src/images/heart.png"));
         leftHeart.setBounds(50, 20, 50, 50);
         this.add(leftHeart);
         middleHeart = new JLabel();
-        middleHeart.setIcon(new ImageIcon("src/GameProject/Images/heart.png"));
+        middleHeart.setIcon(new ImageIcon("src/images/heart.png"));
         middleHeart.setBounds(105, 20, 50, 50);
         this.add(middleHeart);
         rightHeart = new JLabel();
-        rightHeart.setIcon(new ImageIcon("src/GameProject/Images/heart.png"));
+        rightHeart.setIcon(new ImageIcon("src/images/heart.png"));
         rightHeart.setBounds(160, 20, 50, 50);
         this.add(rightHeart);
         new JLabel();

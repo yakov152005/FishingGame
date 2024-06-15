@@ -1,4 +1,4 @@
-package GameProject.main;
+package main;
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,7 +11,7 @@ public class MainMenu extends JPanel {
 
     public MainMenu(GameWindow window){
         this.window = window;
-        this.backgroundImage = new ImageIcon("src/GameProject/images/MainMenuBackground.jpg").getImage();
+        this.backgroundImage = new ImageIcon("src/images/MainMenuBackground.jpg").getImage();
         this.setSize(WIDTH,HEIGHT);
         this.setLayout(null);
         this.setVisible(true);

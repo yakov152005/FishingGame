@@ -1,4 +1,4 @@
-package GameProject.main;
+package main;
 import javax.swing.*;
 
 public class MainClass {

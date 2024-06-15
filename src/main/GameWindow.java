@@ -1,4 +1,4 @@
-package GameProject.main;
+package main;
 import javax.swing.*;
 import java.awt.*;
 import static utilz.Constants.GameWindowConstants.*;
@@ -32,7 +32,7 @@ public class GameWindow extends JFrame {
 
     public void showInstructions(){
         getContentPane().remove(menu);
-        instructions = new Instructions(this);
+        instructions = new main.Instructions(this);
         add(instructions,BorderLayout.CENTER);
         revalidate();
         repaint();

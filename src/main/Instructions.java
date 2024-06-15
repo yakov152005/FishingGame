@@ -1,4 +1,4 @@
-package GameProject.main;
+package main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +14,7 @@ public class Instructions extends JPanel {
 
     public Instructions(GameWindow window) {
         this.window = window;
-        this.backgroundImage = new ImageIcon("src/GameProject/images/InstructionsBackground.jpg").getImage();
+        this.backgroundImage = new ImageIcon("src/images/InstructionsBackground.jpg").getImage();
         this.setSize(WIDTH, HEIGHT);
         JLabel title = new JLabel("Welcome to Dangerous Fishing!");
         title.setSize(200, 200);
@@ -69,10 +69,10 @@ public class Instructions extends JPanel {
         bonusFishLabel.setSize(SUB_TITLES_SIZE, SUB_TITLES_SIZE);
         bonusFishLabel.setBounds(490, IMAGE_LABEL_HEIGHT, SUB_TITLES_SIZE, SUB_TITLES_SIZE);
         this.add(bonusFishLabel);
-        this.yellowFish = new ImageIcon("src/GameProject/images/Fish.png").getImage();
-        this.bonusFish = new ImageIcon("src/GameProject/images/bonusFish.png").getImage();
-        this.sharkImage = new ImageIcon("src/GameProject/images/Shark.png").getImage();
-        this.pufferFishImage = new ImageIcon("src/GameProject/images/PufferFish.png").getImage();
+        this.yellowFish = new ImageIcon("src/images/Fish.png").getImage();
+        this.bonusFish = new ImageIcon("src/images/bonusFish.png").getImage();
+        this.sharkImage = new ImageIcon("src/images/Shark.png").getImage();
+        this.pufferFishImage = new ImageIcon("src/images/PufferFish.png").getImage();
 
 /////////////////////////////////////////
 

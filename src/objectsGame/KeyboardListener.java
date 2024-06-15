@@ -1,8 +1,8 @@
-package GameProject.objectsGame;
+package objectsGame;
 
-import GameProject.fishes.BonusFish;
-import GameProject.fishes.Fish;
-import GameProject.main.GamePanel;
+import fishes.BonusFish;
+import fishes.Fish;
+import main.GamePanel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

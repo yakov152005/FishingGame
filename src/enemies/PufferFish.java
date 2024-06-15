@@ -1,5 +1,4 @@
-package GameProject.enemies;
-
+package enemies;
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,7 +10,7 @@ public class PufferFish extends JPanel {
     public PufferFish(int x, int y) {
         this.x = x;
         this.y = y;
-        this.pufferFishImage = new ImageIcon("src/GameProject/Images/PufferFish.png").getImage();
+        this.pufferFishImage = new ImageIcon("src/images/PufferFish.png").getImage();
     }
 
     public void moveLeft() {
@@ -26,7 +25,5 @@ public class PufferFish extends JPanel {
         super.paintComponent(graphics);
         graphics.drawImage(pufferFishImage, x, y, this);
         graphics.drawRect(this.x + 10, this.y + 17, 95, 90);
-
-
     }
 }

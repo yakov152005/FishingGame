@@ -1,5 +1,4 @@
 24:Yakov
 19:Daniel
 10:Shai
-5:NewRecord
-
+5:Itay

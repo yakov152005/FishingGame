@@ -1,5 +1,4 @@
 package main;
-
 import enemies.PufferFish;
 import enemies.Shark;
 import fishes.BonusFish;
@@ -27,7 +26,6 @@ public class GamePanel extends JPanel {
     private ArrayList<PufferFish> pufferFishes, toRemovePufferFish;
     private ArrayList<BonusFish> bonusFish;
     private ArrayList<Heart> hearts, toRemoveHearts;
-    private long lastHeartMoveTime;
     private JLabel scoreLabel, leftHeart, middleHeart, rightHeart;
     private int score, currentLevel, lives;
     private boolean getInBag, gameRunning;
@@ -67,20 +65,20 @@ public class GamePanel extends JPanel {
         this.addKeyListener(new KeyboardListener(this, this.rod, null, this.fishes, this.bonusFish, null));
         this.setFocusable(true);
 
-        startNewLevel(currentLevel);
+        new Thread(() -> {
+            while (gameRunning) {
+                addHeartForLevel(currentLevel);sleep(40000);}}).start();
 
         this.mainGameLoop();
         this.setVisible(true);
     }
 
-    private void startNewLevel(int level) {
-        addHeartForLevel(level); // מוסיף לב בכל רמה
-    }
-
     private void addHeartForLevel(int level) {
-        int startY = random.nextInt(400, 800); // מיקום התחלתי אקראי בגבולות הגובה של המסך
-        Heart newHeart = new Heart(HEART_START, startY);
-        hearts.add(newHeart);
+        if (hearts.size() < 2) {
+            int startY = random.nextInt(400, 550);
+            Heart newHeart = new Heart(HEART_START + 200, startY);
+            hearts.add(newHeart);
+        }
     }
 
     public void mainGameLoop() {
@@ -97,7 +95,6 @@ public class GamePanel extends JPanel {
                     showGameOver();
                     break;
                 }
-
                 sleep(50);
                 repaint();
             }
@@ -264,12 +261,10 @@ public class GamePanel extends JPanel {
     public void checkDifficult(int score) {
         int newLevel = currentLevel;
         int toDived = 1;
-
         if (score == 0) {
             newLevel = 1;
         } else if (score >= 8 && score <= 15) {
             newLevel = 2;
-            startNewLevel(newLevel);
         } else if (score >= 16 && score <= 24) {
             newLevel = 3;
             toDived = 2;
@@ -281,7 +276,6 @@ public class GamePanel extends JPanel {
         if (newLevel != currentLevel) {
             currentLevel = newLevel;
             levels.levelHardness(newLevel, toDived);
-            startNewLevel(newLevel);
             System.out.println("Level " + newLevel + " Begins!");
             JOptionPane.showMessageDialog(null, "Level " + newLevel + " Begins!");
         }

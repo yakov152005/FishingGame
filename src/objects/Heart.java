@@ -1,5 +1,4 @@
 package objects;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -21,6 +20,12 @@ public class Heart {
 
     public void moveLeft() {
         this.x -= 5;
+    }
+
+    // הזזת הלב באלכסון
+    public void moveDiagonally() {
+        this.x -= 5;
+        this.y -= 1;
     }
 
     public void setCaught(boolean caught) {

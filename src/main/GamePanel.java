@@ -10,12 +10,15 @@ import objects.KeyboardListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+import java.util.TreeMap;
 
 import static utilz.Constants.GamePanelConstant.*;
 import static utilz.Constants.Images.*;
 import static utilz.Constants.LevelConstants.random;
+import static utilz.Constants.SaveAndLoadTxt.HIGH_SCORES_FILE;
 import static utilz.Constants.Text.GAME_OVER_TEXT;
 
 public class GamePanel extends JPanel {
@@ -30,6 +33,8 @@ public class GamePanel extends JPanel {
     private int score, currentLevel, lives;
     private boolean getInBag, gameRunning;
     private Levels levels;
+    private TreeMap<Integer, String> highScores;
+
 
     public GamePanel() {
         this.setFocusable(true);
@@ -65,12 +70,16 @@ public class GamePanel extends JPanel {
         this.addKeyListener(new KeyboardListener(this, this.rod, null, this.fishes, this.bonusFish, null));
         this.setFocusable(true);
 
+        this.highScores = new TreeMap<>((a, b) -> b - a);
+        loadHighScores();
+
         new Thread(() -> {
             while (gameRunning) {
                 addHeartForLevel(currentLevel);sleep(40000);}}).start();
 
         this.mainGameLoop();
         this.setVisible(true);
+
     }
 
     private void addHeartForLevel(int level) {
@@ -92,6 +101,7 @@ public class GamePanel extends JPanel {
 
                 if (this.lives == 0) {
                     gameRunning = false;
+                    saveHighScore();
                     showGameOver();
                     break;
                 }
@@ -352,4 +362,32 @@ public class GamePanel extends JPanel {
             throw new RuntimeException(e);
         }
     }
+
+    private void loadHighScores() {
+        try (BufferedReader br = new BufferedReader(new FileReader(HIGH_SCORES_FILE))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(":");
+                if (parts.length == 2) {
+                    highScores.put(Integer.parseInt(parts[0]), parts[1]);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading highscores: " + e.getMessage());
+        }
+    }
+
+    private void saveHighScore() {
+        String playerName = JOptionPane.showInputDialog("Enter your name:");
+        highScores.put(score, playerName);
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(HIGH_SCORES_FILE))) {
+            for (var entry : highScores.entrySet()) {
+                bw.write(entry.getKey() + ":" + entry.getValue());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving highscores: " + e.getMessage());
+        }
+    }
+
 }

@@ -120,4 +120,8 @@ public class Constants {
                 As soon as you pressed the space key and the fish disappeared - a point was added to you.""";
     }
 
+    public static class SaveAndLoadTxt{
+        public static final String HIGH_SCORES_FILE = "highscores.txt";
+    }
+
 }

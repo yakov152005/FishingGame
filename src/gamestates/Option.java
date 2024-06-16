@@ -35,20 +35,31 @@ public class Option extends BasePanel {
         soundButton.setForeground(Color.BLACK);
         soundButton.setBackground(Color.WHITE);
         soundButton.setOpaque(true);
-        soundButton.setBounds(560, 400, 150, 50);
+        soundButton.setBounds(520, 300, 250, 40);
         soundButton.addActionListener(e -> {
             GameWindow.toggleSound();
             soundButton.setText(window.isIsSoundOn() ? "SOUND OFF" : "SOUND ON");
         });
 
         this.add(soundButton);
+        JButton highScoresButton = new JButton("HIGH-SCORES");
+        highScoresButton.setFont(font);
+        highScoresButton.setForeground(Color.BLACK);
+        highScoresButton.setBackground(Color.WHITE);
+        highScoresButton.setOpaque(true);
+        highScoresButton.setBounds(520, 400, 250, 40);
+        highScoresButton.addActionListener(e -> {
+            window.showHighScores();
+        });
+
+        this.add(highScoresButton);
 
         JButton backToMainMenu = new JButton(FOR_BACK);
         backToMainMenu.setFont(font);
         backToMainMenu.setForeground(Color.BLACK);
         backToMainMenu.setBackground(Color.WHITE);
         backToMainMenu.setOpaque(true);
-        backToMainMenu.setBounds(525, 500, 250, 50);
+        backToMainMenu.setBounds(520, 500, 250, 40);
         backToMainMenu.addActionListener(e -> {
             window.showMainMenu();
         });
@@ -70,7 +81,7 @@ public class Option extends BasePanel {
         int[] sharkPositions = {1, 2, 3, 3, 3}; // מערך שמכיל את המקדמים לכפל ה-FISH_X
 
         for (int i = 0; i < sharkPositions.length; i++) {
-            int xOffset = (i < 3) ? -30 : 170 + (i - 3) * 200; // חישוב המיקום האופקי לפי התנאים השונים
+            int xOffset = (i < 3) ? -30 : 170 + (i - 3) * 200;
             int xPosition = (FISH_X * sharkPositions[i]) + xOffset;
             g.drawImage(sharkImage, xPosition, FISH_Y + 70, FISH_WIDTH + 100, FISH_HEIGHT, null);
         }

@@ -31,8 +31,10 @@ public class KeyboardListener implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
+            case KeyEvent.VK_W -> this.rod.moveUp();
             case KeyEvent.VK_UP ->this.rod.moveUp();
 
+            case KeyEvent.VK_S -> this.rod.moveDown();
             case KeyEvent.VK_DOWN -> this.rod.moveDown();
 
             case KeyEvent.VK_SPACE -> {

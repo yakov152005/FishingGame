@@ -1,44 +1,37 @@
 package main;
+
 import enemies.PufferFish;
 import enemies.Shark;
 import fishes.BonusFish;
 import fishes.Fish;
 import level.Levels;
 import objects.FishingRod;
+import objects.Heart;
 import objects.KeyboardListener;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+
 import static utilz.Constants.GamePanelConstant.*;
 import static utilz.Constants.Images.*;
+import static utilz.Constants.LevelConstants.random;
 import static utilz.Constants.Text.GAME_OVER_TEXT;
 
 public class GamePanel extends JPanel {
     private Image backgroundImage;
     private FishingRod rod;
-    private Fish fish;
-    private Shark shark;
-    private ArrayList<Shark> sharks;
-    private ArrayList<Shark> toRemoveSharks;
-    private ArrayList<Fish> fishes;
-    private ArrayList<Fish> flippedFishes;
-    private PufferFish pufferFish;
-    private ArrayList<PufferFish> pufferFishes;
-    private ArrayList<PufferFish> toRemovePufferFish;
+    private ArrayList<Shark> sharks, toRemoveSharks;
+    private ArrayList<Fish> fishes, flippedFishes;
+    private ArrayList<PufferFish> pufferFishes, toRemovePufferFish;
     private ArrayList<BonusFish> bonusFish;
-    private BonusFish bonus;
-    private JLabel scoreLabel;
-    private JLabel leftHeart;
-    private JLabel middleHeart;
-    private JLabel rightHeart;
-    private int score;
-    private int currentLevel;
-    private int lives;
-    private boolean getInBag;
+    private ArrayList<Heart> hearts, toRemoveHearts;
+    private long lastHeartMoveTime;
+    private JLabel scoreLabel, leftHeart, middleHeart, rightHeart;
+    private int score, currentLevel, lives;
+    private boolean getInBag, gameRunning;
     private Levels levels;
-    private int gameOver;
-    private boolean gameRunning;
 
     public GamePanel() {
         this.setFocusable(true);
@@ -49,81 +42,55 @@ public class GamePanel extends JPanel {
         this.setLayout(null);
         scoreLabel();
         life();
+
         this.rod = new FishingRod();
         this.add(this.rod);
-        this.fish = new Fish(0, 0);
-        this.bonusFish = new ArrayList<>();
-        this.shark = new Shark(0, 0);
+
         this.sharks = new ArrayList<>();
         this.toRemoveSharks = new ArrayList<>();
-        this.pufferFish = new PufferFish(0, 0);
         this.pufferFishes = new ArrayList<>();
         this.toRemovePufferFish = new ArrayList<>();
         this.fishes = new ArrayList<>();
         this.flippedFishes = new ArrayList<>();
-        this.bonus = new BonusFish(0, 0);
+        this.bonusFish = new ArrayList<>();
+        this.hearts = new ArrayList<>();
+        this.toRemoveHearts = new ArrayList<>();
+
         this.currentLevel = 1;
         this.lives = 3;
         this.getInBag = false;
-        this.gameOver = 0;
-        this.levels = new Levels(fishes, bonusFish, sharks, pufferFishes);
-        levels.levelHardness(1, 1);
         this.gameRunning = true;
 
-        this.addKeyListener(new KeyboardListener
-                (this, this.rod, this.fish, this.fishes, this.bonusFish, this.bonus));
+        this.levels = new Levels(fishes, bonusFish, sharks, pufferFishes);
+        levels.levelHardness(1, 1);
+
+        this.addKeyListener(new KeyboardListener(this, this.rod, null, this.fishes, this.bonusFish, null));
         this.setFocusable(true);
+
+        startNewLevel(currentLevel);
+
         this.mainGameLoop();
         this.setVisible(true);
+    }
 
+    private void startNewLevel(int level) {
+        addHeartForLevel(level); // מוסיף לב בכל רמה
+    }
+
+    private void addHeartForLevel(int level) {
+        int startY = random.nextInt(400, 800); // מיקום התחלתי אקראי בגבולות הגובה של המסך
+        Heart newHeart = new Heart(HEART_START, startY);
+        hearts.add(newHeart);
     }
 
     public void mainGameLoop() {
         new Thread(() -> {
             while (gameRunning) {
-                for (Fish currentFish : fishes) {
-                    currentFish.moveRight();
-
-                    if (checkCollision(currentFish, rod) && !this.getInBag)
-                        currentFish.setCaught(true);
-
-                    if (currentFish.isCaught() && !this.getInBag)
-                        currentFish.setPosition(rod.getHookX() - currentFish.getX() / 7,
-                                rod.getHookY() - currentFish.getY() / 7); // כיוון תמונה שהדג בחכה
-                }
-
-                for (BonusFish currentBonusFish : this.bonusFish) {
-                    if (!currentBonusFish.isCaught())
-                        currentBonusFish.moveLeft();
-
-                    if (checkCollisionWithBonus(currentBonusFish, rod) && !this.getInBag)
-                        currentBonusFish.setCaught(true);
-
-                    if (currentBonusFish.isCaught() && !this.getInBag)
-                        currentBonusFish.setPosition(rod.getHookX() - currentBonusFish.getX() / 20,
-                                rod.getHookY() - currentBonusFish.getY() / 25); // הזז את מיקום הדג לקרוב לחכה
-                }
-
-
-                for (PufferFish currentPuffFish : pufferFishes) {
-                    currentPuffFish.moveLeft();
-
-                    if (collisionWithPufferFish(currentPuffFish, rod)) {
-                        checkLives(lives);
-                        toRemovePufferFish.add(currentPuffFish);
-                    }
-                }
-                removePufferFish();
-
-                for (Shark currentShark : sharks) {
-                    currentShark.moveRight();
-
-                    if (collisionWithShark(currentShark, rod)) {
-                        checkLives(lives);
-                        toRemoveSharks.add(currentShark);
-                    }
-                }
-                removeSharksFromList();
+                moveAndCheckFishes();
+                moveAndCheckBonusFishes();
+                moveAndCheckPufferFishes();
+                moveAndCheckSharks();
+                moveAndCheckHearts();
 
                 if (this.lives == 0) {
                     gameRunning = false;
@@ -135,6 +102,97 @@ public class GamePanel extends JPanel {
                 repaint();
             }
         }).start();
+    }
+
+    private void moveAndCheckFishes() {
+        for (Fish currentFish : fishes) {
+            currentFish.moveRight();
+            if (checkCollision(currentFish, rod) && !this.getInBag)
+                currentFish.setCaught(true);
+            if (currentFish.isCaught() && !this.getInBag)
+                currentFish.setPosition(rod.getHookX() - currentFish.getX() / 7, rod.getHookY() - currentFish.getY() / 7);
+        }
+    }
+
+    private void moveAndCheckBonusFishes() {
+        for (BonusFish currentBonusFish : this.bonusFish) {
+            if (!currentBonusFish.isCaught())
+                currentBonusFish.moveLeft();
+            if (checkCollisionWithBonus(currentBonusFish, rod) && !this.getInBag)
+                currentBonusFish.setCaught(true);
+            if (currentBonusFish.isCaught() && !this.getInBag)
+                currentBonusFish.setPosition(rod.getHookX() - currentBonusFish.getX() / 20, rod.getHookY() - currentBonusFish.getY() / 25);
+        }
+    }
+
+    private void moveAndCheckPufferFishes() {
+        for (PufferFish currentPufferFish : pufferFishes) {
+            currentPufferFish.moveLeft();
+            if (collisionWithPufferFish(currentPufferFish, rod)) {
+                checkLives(lives);
+                toRemovePufferFish.add(currentPufferFish);
+            }
+        }
+        removePufferFish();
+    }
+
+    private void moveAndCheckSharks() {
+        for (Shark currentShark : sharks) {
+            currentShark.moveRight();
+            if (collisionWithShark(currentShark, rod)) {
+                checkLives(lives);
+                toRemoveSharks.add(currentShark);
+            }
+        }
+        removeSharksFromList();
+    }
+
+    private void moveAndCheckHearts() {
+        for (Heart currentHeart : hearts) {
+            currentHeart.moveLeft();
+            if (collisionWithHeart(currentHeart, rod) && !currentHeart.isCaught()) {
+                currentHeart.setCaught(true);
+                addLife();
+                toRemoveHearts.add(currentHeart);
+            }
+        }
+        removeHeartsFromList();
+    }
+
+    public boolean collisionWithHeart(Heart heart, FishingRod rod) {
+        return rod.getHookBounds().intersects(heart.getHeartBounds());
+    }
+
+    public void addLife() {
+        if (lives < 3) { // הגבלת מספר החיים ל-3
+            lives++;
+            updateLivesDisplay();
+        }
+    }
+
+    public void removeHeartsFromList() {
+        hearts.removeAll(toRemoveHearts);
+        toRemoveHearts.clear();
+    }
+
+    public void updateLivesDisplay() {
+        switch (lives) {
+            case 1 -> {
+                middleHeart.setVisible(false);
+                rightHeart.setVisible(false);
+                leftHeart.setVisible(true);
+            }
+            case 2 -> {
+                rightHeart.setVisible(false);
+                middleHeart.setVisible(true);
+                leftHeart.setVisible(true);
+            }
+            case 3 -> {
+                rightHeart.setVisible(true);
+                middleHeart.setVisible(true);
+                leftHeart.setVisible(true);
+            }
+        }
     }
 
     public boolean checkCollision(Fish fish, FishingRod rod) {
@@ -172,77 +230,62 @@ public class GamePanel extends JPanel {
     }
 
     public void removeSharksFromList() {
-        for (Shark toRemove : toRemoveSharks) {
-            this.sharks.remove(toRemove);
-        }
+        sharks.removeAll(toRemoveSharks);
         toRemoveSharks.clear();
     }
 
     public void removePufferFish() {
-        for (PufferFish toRemove : toRemovePufferFish) {
-            this.pufferFishes.remove(toRemove);
-        }
+        pufferFishes.removeAll(toRemovePufferFish);
         toRemovePufferFish.clear();
     }
 
-
     public void checkLives(int lives) {
         switch (lives) {
-            case 1:
-                middleHeart.setVisible(false);
-                break;
-            case 2:
-                rightHeart.setVisible(false);
-                break;
-            case 3:
-                leftHeart.setVisible(false);
-                break;
+            case 1 -> middleHeart.setVisible(false);
+            case 2 -> rightHeart.setVisible(false);
+            case 3 -> leftHeart.setVisible(false);
         }
-
     }
 
     public void life() {
-
-        leftHeart = new JLabel();
-        leftHeart.setIcon(new ImageIcon(HEARTH));
-        leftHeart.setBounds(HEARTH_X, HEARTH_Y, HEARTH_WIDTH, HEARTH_HEIGHT);
+        leftHeart = new JLabel(new ImageIcon(HEART));
+        leftHeart.setBounds(HEART_X, HEART_Y, HEART_WIDTH, HEART_HEIGHT);
         this.add(leftHeart);
 
-        middleHeart = new JLabel();
-        middleHeart.setIcon(new ImageIcon(HEARTH));
-        middleHeart.setBounds((HEARTH_X * 2 )+ 5, HEARTH_Y, HEARTH_WIDTH, HEARTH_HEIGHT);
+        middleHeart = new JLabel(new ImageIcon(HEART));
+        middleHeart.setBounds((HEART_X * 2) + 5, HEART_Y, HEART_WIDTH, HEART_HEIGHT);
         this.add(middleHeart);
 
-        rightHeart = new JLabel();
-        rightHeart.setIcon(new ImageIcon(HEARTH));
-        rightHeart.setBounds((HEARTH_X * 3) + 10, HEARTH_Y, HEARTH_WIDTH, HEARTH_HEIGHT);
+        rightHeart = new JLabel(new ImageIcon(HEART));
+        rightHeart.setBounds((HEART_X * 3) + 10, HEART_Y, HEART_WIDTH, HEART_HEIGHT);
         this.add(rightHeart);
-
-        new JLabel();
     }
-
 
     public void checkDifficult(int score) {
         int newLevel = currentLevel;
         int toDived = 1;
 
-        if (score <= 5) {
+        if (score == 0) {
             newLevel = 1;
-        } else if (score >= 10 && score < 25) {
+        } else if (score >= 8 && score <= 15) {
             newLevel = 2;
-        } else if (score >= 25) {
+            startNewLevel(newLevel);
+        } else if (score >= 16 && score <= 24) {
             newLevel = 3;
             toDived = 2;
+        } else if (score >= 25 && score <= 35) {
+            newLevel = 4;
+            toDived = 3;
         }
 
         if (newLevel != currentLevel) {
             currentLevel = newLevel;
             levels.levelHardness(newLevel, toDived);
+            startNewLevel(newLevel);
             System.out.println("Level " + newLevel + " Begins!");
             JOptionPane.showMessageDialog(null, "Level " + newLevel + " Begins!");
         }
     }
-
 
     public void scoreLabel() {
         this.scoreLabel = new JLabel("" + this.score);
@@ -260,7 +303,6 @@ public class GamePanel extends JPanel {
         checkDifficult(score);
     }
 
-
     public void removeFish(Fish fish) {
         this.fishes.remove(fish);
         this.getInBag = false;
@@ -272,8 +314,8 @@ public class GamePanel extends JPanel {
     }
 
     public void paintComponent(Graphics graphics) throws ConcurrentModificationException {
-        graphics.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         super.paintComponent(graphics);
+        graphics.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         this.rod.paint(graphics);
         try {
             for (Shark sharks : this.sharks) {
@@ -291,8 +333,10 @@ public class GamePanel extends JPanel {
             for (Fish fishes : this.flippedFishes) {
                 fishes.paintComponent(graphics);
             }
+            for (Heart currentHeart : this.hearts) {
+                currentHeart.paintComponent(graphics);
+            }
         } catch (Exception e) {}
-        repaint();
     }
 
     private void showGameOver() {
@@ -301,12 +345,10 @@ public class GamePanel extends JPanel {
             JOptionPane.showMessageDialog(null, GAME_OVER_TEXT);
             gameOverLabel.setFont(new Font("Arial", Font.BOLD, 72));
             gameOverLabel.setForeground(Color.RED);
-            gameOverLabel.setBounds(GAME_PANEL_WIDTH / 3 - 30, GAME_PANEL_HEIGHT / 2,
-                    GAME_PANEL_WIDTH - 380, HEIGHT_DEFAULT);
+            gameOverLabel.setBounds(GAME_PANEL_WIDTH / 3 - 30, GAME_PANEL_HEIGHT / 2, GAME_PANEL_WIDTH - 380, HEIGHT_DEFAULT);
             this.add(gameOverLabel);
             System.exit(0);
         }
-
     }
 
     public void sleep(int millis) {
@@ -317,8 +359,3 @@ public class GamePanel extends JPanel {
         }
     }
 }
-
-
-
-
-

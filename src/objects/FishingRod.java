@@ -15,15 +15,15 @@ public class FishingRod extends JPanel {
     }
 
     public void moveUp() {
-        if (getHookY() <= MAX_LINE_LENGTH) {
-            lineLength += 18;
+        if (lineLength - 18 >= MIN_LINE_LENGTH) {
+            lineLength -= 18;
         }
     }
 
    public void moveDown() {
-        if (lineLength - 18 >= MIN_LINE_LENGTH) {
-            lineLength -= 18;
-        }
+       if (getHookY() <= MAX_LINE_LENGTH) {
+           lineLength += 18;
+       }
     }
 
     public Rectangle getHookBounds() {

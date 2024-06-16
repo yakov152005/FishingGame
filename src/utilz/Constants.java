@@ -18,10 +18,11 @@ public class Constants {
     public static class GamePanelConstant{
         public static final int GAME_PANEL_WIDTH = 1280;
         public static final int GAME_PANEL_HEIGHT = 720;
-        public static final int HEARTH_WIDTH = 50;
-        public static final int HEARTH_HEIGHT = 50;
-        public static final int HEARTH_X = 50;
-        public static final int HEARTH_Y = 20;
+        public static final int HEART_WIDTH = 50;
+        public static final int HEART_HEIGHT = 50;
+        public static final int HEART_X = 50;
+        public static final int HEART_Y = 20;
+        public static final int HEART_START = 1200;
         public static final int SCORE_LABEL_WIDTH = 400;
         public static final int SCORE_LABEL_HEIGHT = 400;
         public static final int WIDTH_DEFAULT = 200;
@@ -77,7 +78,7 @@ public class Constants {
     public static class Images{
         public static final String HOOK_PAINT = "src/images/HookPaint.png";
         public static final String BACK_GROUND = "src/images/Background.png";
-        public static final String HEARTH = "src/images/heart.png";
+        public static final String HEART = "src/images/heart.png";
         public static final String MAIN_MENU_BACK_GROUND = "src/images/MainMenuBackground.jpg";
         public static final String YELLOW_FISH = "src/images/Fish.png";
         public static final String BONUS_FISH = "src/images/bonusFish.png";
@@ -110,9 +111,12 @@ public class Constants {
                 beyond the fact that you can't fish for a Shark, a shark can't touch the fishing line!
                 for that the game starts with 3 lives, every time you touch a shark or puff fish one life goes down!
                 
+                ~ ! Pay attention !~
+                In each level a new heart is created in the water, if you fish it you can increase the life.
+                
                 Game operation:
-                1. Use the arrow keys to move the hook up and down
-                2. When a fish is caught on the rod, it must be brought up to the tip of the rod and only then press the space bar
+                1. Use the arrow keys to move the hook up and down, or W(for Up), S(for down).
+                2. When a fish is caught on the rod, it must be brought up to the tip of the rod and only then press the 'SPACE BAR'
                 As soon as you pressed the space key and the fish disappeared - a point was added to you.""";
     }
 

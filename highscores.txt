@@ -1,4 +1,6 @@
 24:Yakov
-5:Daniel
-3:Itay
-0:Ido
+19:Daniel
+5:NewRecord
+4:??
+3:Ido
+1:Check

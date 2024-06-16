@@ -69,6 +69,7 @@ public class GameWindow extends JFrame {
     public void showOption(){
         getContentPane().removeAll();
         option = new Option(this);
+        loadHighScores();
         add(option,BorderLayout.CENTER);
         update();
     }

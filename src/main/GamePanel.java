@@ -101,7 +101,6 @@ public class GamePanel extends JPanel {
 
                 if (this.lives == 0) {
                     gameRunning = false;
-                    saveHighScore();
                     showGameOver();
                     break;
                 }
@@ -345,13 +344,14 @@ public class GamePanel extends JPanel {
 
     private void showGameOver() {
         if (!gameRunning) {
+            saveHighScore();
             JLabel gameOverLabel = new JLabel(GAME_OVER_TEXT);
             JOptionPane.showMessageDialog(null, GAME_OVER_TEXT);
             gameOverLabel.setFont(new Font("Arial", Font.BOLD, 72));
             gameOverLabel.setForeground(Color.RED);
             gameOverLabel.setBounds(GAME_PANEL_WIDTH / 3 - 30, GAME_PANEL_HEIGHT / 2, GAME_PANEL_WIDTH - 380, HEIGHT_DEFAULT);
             this.add(gameOverLabel);
-            System.exit(0);
+            ((GameWindow) SwingUtilities.getWindowAncestor(this)).showMainMenu();
         }
     }
 

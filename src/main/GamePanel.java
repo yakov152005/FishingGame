@@ -286,8 +286,27 @@ public class GamePanel extends JPanel {
             currentLevel = newLevel;
             levels.levelHardness(newLevel, toDived);
             System.out.println("Level " + newLevel + " Begins!");
-            JOptionPane.showMessageDialog(null, "Level " + newLevel + " Begins!");
+            displayLevelLabel(newLevel);
         }
+    }
+
+    public void displayLevelLabel(int level) {
+        JLabel levelLabel = new JLabel("Level " + level+ " Begins!");
+        levelLabel.setFont(new Font("Ink Free", Font.BOLD, 48));
+        levelLabel.setForeground(Color.RED);
+        levelLabel.setBounds(GAME_PANEL_WIDTH /2-170, GAME_PANEL_HEIGHT / 2 - 50, 400, 100);
+        this.add(levelLabel);
+        this.repaint();
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            this.remove(levelLabel);
+            this.repaint();
+        }).start();
     }
 
     public void scoreLabel() {

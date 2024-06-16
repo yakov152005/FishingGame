@@ -33,7 +33,7 @@ public class Instructions extends BasePanel {
         JButton backToMainMenu = new JButton();
         backToMainMenu.setText(FOR_BACK);
         backToMainMenu.setFont(font);
-        backToMainMenu.setForeground(Color.BLACK);
+        backToMainMenu.setForeground(Color.WHITE);
         backToMainMenu.setBounds((int) (INSTRUCTIONS_WIDTH / POS) - 400, (int) (INSTRUCTIONS_HEIGHT / POS) + 120, 300, 50);
         backToMainMenu.setContentAreaFilled(false);
         backToMainMenu.addActionListener(e -> {
